@@ -1,14 +1,21 @@
 package main.system;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.util.Objects;
 
 public class GamePanel extends JPanel implements Runnable {
 
     public final int screenWidth = 800, screenHeight = 640; // 窗体大小(分辨率)：800 x 640px
     public static final int FPS = 50; // 上限50帧
 
+    BufferedImage bgImg;
+
     Thread gameThread;
+
 
     public GamePanel() {
 
@@ -23,7 +30,10 @@ public class GamePanel extends JPanel implements Runnable {
         }
     }
 
-    public void setupGame() {
+    public void setupGame() throws IOException {
+
+        // 背景图片加载
+        bgImg = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/bg/bg_blue.png")));
 
         // 游戏线程启动
         (gameThread = new Thread(this)).start();
@@ -70,7 +80,14 @@ public class GamePanel extends JPanel implements Runnable {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
 
+        drawBackground(g2); // 背景层
+
         g2.dispose();
+    }
+
+    private void drawBackground(Graphics2D g2) {
+
+        g2.drawImage(bgImg, 0, 0, screenWidth, screenHeight, null);
     }
 
 }
