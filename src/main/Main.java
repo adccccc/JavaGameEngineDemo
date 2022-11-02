@@ -1,6 +1,8 @@
 package main;
 
 
+import main.system.GamePanel;
+
 import javax.swing.*;
 
 public class Main {
@@ -12,8 +14,12 @@ public class Main {
         window.setResizable(false);
         window.setTitle("My 2D Game");
 
+        GamePanel gp = new GamePanel();
+        window.add(gp);
         window.pack();  // show window
         window.setLocationRelativeTo(null);
         window.setVisible(true);
+
+        gp.setupGame(); // 启动游戏主线程
     }
 }
