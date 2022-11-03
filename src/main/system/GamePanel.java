@@ -11,12 +11,19 @@ import java.util.Objects;
 
 public class GamePanel extends JPanel implements Runnable {
 
-    public final int screenWidth = 800, screenHeight = 640; // 窗体大小(分辨率)：800 x 640px
+
+    // 画面设置
+    public final int gridSize = 32; // 基础格子尺寸为32x32像素
+    public final int maxScreenCol = 25, maxScreenRow = 20; // 宽25格，高20格
+    public final int screenWidth = gridSize * maxScreenCol, screenHeight = gridSize * maxScreenRow; // 窗体大小(分辨率)：800 x 640px
+
     public static final int FPS = 50; // 上限50帧
 
+    // 系统组件
     BufferedImage bgImg;
     Player player;
     KeyHandler keyHandler;
+    GameObjectManager gameObjectManager;
 
     Thread gameThread;
 
@@ -42,6 +49,8 @@ public class GamePanel extends JPanel implements Runnable {
         this.addKeyListener(keyHandler);
         // 游戏角色加载
         player = new Player(this, keyHandler);
+        // 游戏物体加载
+        gameObjectManager = new GameObjectManager(this);
 
         // 游戏线程启动
         (gameThread = new Thread(this)).start();
@@ -93,6 +102,7 @@ public class GamePanel extends JPanel implements Runnable {
         Graphics2D g2 = (Graphics2D) g;
 
         drawBackground(g2); // 背景层
+        gameObjectManager.draw(g2); // 物体层
         player.draw(g2); // 角色层
 
         g2.dispose();

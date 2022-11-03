@@ -9,12 +9,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.Objects;
 
-public class Player {
-
-    // 属性
-    public CcVector pos; // 位置
-    public CcVector box; // 大小
-    public BufferedImage img; // 图片
+public class Player extends Entity {
 
     // 控件
     public GamePanel gp; // 画板
@@ -43,19 +38,11 @@ public class Player {
     }
 
     /**
-     * 绘制角色图形
-     */
-    public void draw(Graphics2D g2) {
-
-        g2.drawImage(img, (int)pos.x, (int)pos.y, (int)box.x, (int)box.y, null);
-    }
-
-    /**
      * 更新角色状态
      */
     public void update() {
 
-        // 角色移动速度
+        // 角色移动速度, 单位为像素每帧
         double speed = 3.0;
 
         // 根据移动指令，修改角色位置
