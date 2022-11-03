@@ -16,6 +16,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     BufferedImage bgImg;
     Player player;
+    KeyHandler keyHandler;
 
     Thread gameThread;
 
@@ -36,8 +37,11 @@ public class GamePanel extends JPanel implements Runnable {
 
         // 背景图片加载
         bgImg = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/bg/bg_blue.png")));
+        // 监听键盘输入
+        keyHandler = new KeyHandler(this);
+        this.addKeyListener(keyHandler);
         // 游戏角色加载
-        player = new Player(this);
+        player = new Player(this, keyHandler);
 
         // 游戏线程启动
         (gameThread = new Thread(this)).start();
@@ -70,8 +74,12 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
 
+    /**
+     * 重新计算所有游戏物体的状态
+     */
     public void update() {
 
+        player.update(); // 更新角色状态
     }
 
     /**

@@ -2,6 +2,7 @@ package main.entity;
 
 import main.graphic.CcVector;
 import main.system.GamePanel;
+import main.system.KeyHandler;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -16,11 +17,13 @@ public class Player {
     public BufferedImage img; // 图片
 
     // 控件
-    public GamePanel gp;
+    public GamePanel gp; // 画板
+    public KeyHandler keyHandler; // 按键监听器
 
-    public Player(GamePanel gp) {
+    public Player(GamePanel gp, KeyHandler keyHandler) {
 
         this.gp = gp;
+        this.keyHandler = keyHandler;
         initPlayer();
     }
 
@@ -45,6 +48,25 @@ public class Player {
     public void draw(Graphics2D g2) {
 
         g2.drawImage(img, (int)pos.x, (int)pos.y, (int)box.x, (int)box.y, null);
+    }
+
+    /**
+     * 更新角色状态
+     */
+    public void update() {
+
+        // 角色移动速度
+        double speed = 3.0;
+
+        // 根据移动指令，修改角色位置
+        if (keyHandler.leftPressed)
+            pos.x -= speed;
+        if (keyHandler.rightPressed)
+            pos.x += speed;
+        if (keyHandler.topPressed)
+            pos.y -= speed;
+        if (keyHandler.downPressed)
+            pos.y += speed;
     }
 
 }
