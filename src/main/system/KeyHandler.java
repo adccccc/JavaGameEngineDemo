@@ -5,9 +5,11 @@ import java.awt.event.KeyListener;
 
 public class KeyHandler implements KeyListener {
 
-    GamePanel gp;
+    // 输入控件标记状态
+    public boolean leftPressed, rightPressed;
+    public boolean jumpPressed, jumpReleased;
 
-    public boolean leftPressed, rightPressed, topPressed, downPressed;
+    GamePanel gp;
 
     public KeyHandler(GamePanel gp) {
 
@@ -20,14 +22,13 @@ public class KeyHandler implements KeyListener {
     public void keyPressed(KeyEvent e) {
 
         int code = e.getKeyCode();
-        if (code == KeyEvent.VK_A || code == KeyEvent.VK_LEFT) {
+        if (code == KeyEvent.VK_A || code == KeyEvent.VK_LEFT) { // 向左
             leftPressed = true;
-        } else if (code == KeyEvent.VK_D || code == KeyEvent.VK_RIGHT) {
+        } else if (code == KeyEvent.VK_D || code == KeyEvent.VK_RIGHT) { // 向右
             rightPressed = true;
-        } else if (code == KeyEvent.VK_W || code == KeyEvent.VK_UP) {
-            topPressed = true;
-        } else if (code == KeyEvent.VK_S || code == KeyEvent.VK_DOWN) {
-            downPressed = true;
+        } else if (code == KeyEvent.VK_SPACE || code == KeyEvent.VK_SHIFT) { // 跳跃
+            jumpPressed = true;
+            jumpReleased = false;
         }
     }
 
@@ -39,10 +40,9 @@ public class KeyHandler implements KeyListener {
             leftPressed = false;
         } else if (code == KeyEvent.VK_D || code == KeyEvent.VK_RIGHT) {
             rightPressed = false;
-        } else if (code == KeyEvent.VK_W || code == KeyEvent.VK_UP) {
-            topPressed = false;
-        } else if (code == KeyEvent.VK_S || code == KeyEvent.VK_DOWN) {
-            downPressed = false;
+        } else if (code == KeyEvent.VK_SPACE || code == KeyEvent.VK_SHIFT) {
+            jumpPressed = false;
+            jumpReleased = true;
         }
     }
 

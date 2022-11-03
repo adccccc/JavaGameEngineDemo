@@ -10,6 +10,7 @@ public class Entity {
     // 属性
     public CcVector pos; // 位置
     public CcVector box; // 大小
+    public CcVector speed; // 速度
     public BufferedImage img; // 图片
 
     /**
