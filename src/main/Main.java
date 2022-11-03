@@ -15,11 +15,11 @@ public class Main {
         window.setTitle("My 2D Game");
 
         GamePanel gp = new GamePanel();
-        window.add(gp);
+        gp.setupGame(); // 启动游戏主线程
+
+        window.add(gp); // 游戏内容绘制到窗口
         window.pack();  // show window
         window.setLocationRelativeTo(null);
         window.setVisible(true);
-
-        gp.setupGame(); // 启动游戏主线程
     }
 }

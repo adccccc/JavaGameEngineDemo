@@ -1,5 +1,7 @@
 package main.system;
 
+import main.entity.Player;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -13,9 +15,9 @@ public class GamePanel extends JPanel implements Runnable {
     public static final int FPS = 50; // 上限50帧
 
     BufferedImage bgImg;
+    Player player;
 
     Thread gameThread;
-
 
     public GamePanel() {
 
@@ -34,6 +36,8 @@ public class GamePanel extends JPanel implements Runnable {
 
         // 背景图片加载
         bgImg = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/bg/bg_blue.png")));
+        // 游戏角色加载
+        player = new Player(this);
 
         // 游戏线程启动
         (gameThread = new Thread(this)).start();
@@ -81,6 +85,7 @@ public class GamePanel extends JPanel implements Runnable {
         Graphics2D g2 = (Graphics2D) g;
 
         drawBackground(g2); // 背景层
+        player.draw(g2); // 角色层
 
         g2.dispose();
     }
